@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import Overview from './components/Overview';
+// Apps Js is going to handle the input field with the logic
 
-function App() {
-  return (
+class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      tasks: [],
+    };
+
+    this.addTask = this.addTask.bind(this);
+  }
+
+  addTask (newTask) {
+    this.setState({
+      tasks: [...this.state.tasks, newTask],
+    });
+  }
+
+  render() {
+    return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input
+        type="text"
+        id="task"
+        name="task" />
+      <button onClick={() => {
+        const newTask = document.getElementById("task").value;
+        this.addTask(newTask);
+      }
+      }>Add Task</button>
+      <Overview tasks={this.state.tasks}/>
     </div>
-  );
+    );
+  };
 }
 
 export default App;
